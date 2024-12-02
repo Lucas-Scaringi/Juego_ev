@@ -21,6 +21,7 @@ juego_corriendo = True
 
 #Bucle del juego
 while juego_corriendo:
+    rectangulo_mouse = pg.draw.rect(pantalla, COLOR_BLANCO, (coord_mouse[0], coord_mouse[1], 2, 2), 1)
     #Lista de eventos de juego
     lista_eventos = pg.event.get()
     tiempo_actual = pg.time.get_ticks()
@@ -45,7 +46,7 @@ while juego_corriendo:
                     sonido_juego.play_sonido(SONIDO_REEL)
                     personaje = pg.image.load("./Imagenes/personaje-espaldas-sentado-33-68.png")
                     personaje = pg.transform.scale(personaje, tamaño_personaje_frente)
-            
+                                
             if pesca == True:
                 if evento.key == pg.K_SPACE:
                     if tiempo_actual - ultima_pesca >= cooldown:
@@ -73,7 +74,12 @@ while juego_corriendo:
 
 #Eventos de mouse
         if evento.type == pg.MOUSEBUTTONDOWN:
-            print(evento.pos)   
+            coord_mouse = evento.pos
+            print(evento.pos) 
+            print("M",coord_mouse)  
+            if rectangulo_mouse.colliderect(rectangulo_boton_iniciar):
+                    print("Botón de inicio clickeado")
+                    jugando = True
     # if evento.type == pg.MOUSEBUTTONUP:
     #     pass
     # if evento.type == pg.MOUSEWHEEL:
@@ -192,12 +198,28 @@ while juego_corriendo:
 #Cargas en la pantalla
     #Fondo
     pantalla.blit(fondo, COORD_FONDO)
+    if jugando == False:
+        fondo = pg.image.load("./Imagenes/Fondo-libre.png")
+        pantalla.blit(boton_iniciar, (coord_contador_x, 200))
+        movimiento = False
+    else:
+        if pesca == False:
+            movimiento = True
+            fondo = pg.image.load("./Imagenes/Fondo-con-puntos.png")
+        pantalla.blit(personaje, coord_personaje)
+        contador_totales1 = fuente_lista.render (f"Total pescado: {contador_total}", True, COLOR_NARANJA)
+        pantalla.blit(contador_totales1, (coord_contador_x, coord_contador_y))
+        contador_totales = fuente_lista.render (f"Total pescado: {contador_total}", False, COLOR_NEGRO)
+        pantalla.blit(contador_totales, (coord_contador_x, coord_contador_y))
     if modo_test:
         pg.draw.rect(pantalla, COLOR_BLANCO, rectangulo_colision_1, 1)
         pg.draw.rect(pantalla, COLOR_BLANCO, rectangulo_colision_2, 1)
+        pg.draw.rect(pantalla, COLOR_NEGRO, rectangulo_mouse, 2)
+        if jugando == False:
+            pg.draw.rect(pantalla, COLOR_ROJO, rectangulo_boton_iniciar, 1)
     #Personaje
-        pg.draw.rect(pantalla, COLOR_CELESTE, rect_personaje, 1)
-    pantalla.blit(personaje, coord_personaje)
+    pg.draw.rect(pantalla, COLOR_CELESTE, rect_personaje, 1)
+    #pantalla.blit(personaje, coord_personaje)
     #Colisiones 
     if pesca == True:
         lista_tecla_presionada = pg.key.get_pressed()
@@ -210,10 +232,10 @@ while juego_corriendo:
                     y_offset += 25
             elif():
                 pass
-    contador_totales1 = fuente_lista.render (f"Total pescado: {contador_total}", True, COLOR_NARANJA)
-    pantalla.blit(contador_totales1, (coord_contador_x, coord_contador_y))
-    contador_totales = fuente_lista.render (f"Total pescado: {contador_total}", False, COLOR_NEGRO)
-    pantalla.blit(contador_totales, (coord_contador_x, coord_contador_y))
+    # contador_totales1 = fuente_lista.render (f"Total pescado: {contador_total}", True, COLOR_NARANJA)
+    # pantalla.blit(contador_totales1, (coord_contador_x, coord_contador_y))
+    # contador_totales = fuente_lista.render (f"Total pescado: {contador_total}", False, COLOR_NEGRO)
+    # pantalla.blit(contador_totales, (coord_contador_x, coord_contador_y))
 
     pg.display.flip()
 #Fin del juego
