@@ -4,6 +4,7 @@ from Funciones import *
 
 #Constantes y variables
 RESOLUCION_PANTALLA = (800, 600)
+coord_mouse = [0, 0]
 COLOR_NEGRO = (0, 0, 0)
 COLOR_CELESTE = (0, 180, 220)
 COLOR_AMARILLO = (255, 255, 0)
@@ -26,6 +27,7 @@ tamaño_personaje_corriendo_frente = [60, 60]
 SONIDO_MUSICA = "./Sonidos/sonido-fondo-mar.mp3"
 SONIDO_PASOS = "./Sonidos/caminando madera.mp3"
 SONIDO_REEL = "./Sonidos/reel.mp3"
+jugando = False
 
 modo_test = False
 velocidad_correr = velocidad_normal * 2
@@ -73,6 +75,9 @@ personaje = pg.transform.scale(personaje, tamaño_personaje_frente)
 fondo = pg.image.load("./Imagenes/Fondo-con-puntos.png")
 fondo = pg.transform.scale(fondo, RESOLUCION_PANTALLA)
 icono = pg.image.load("./Imagenes/icono.png")
+boton_iniciar = pg.image.load("./Imagenes/iniciar-juego.png")
+boton_iniciar = pg.transform.scale(boton_iniciar, (160, 40))
+
 
 #Fuentes y textos
 fuente = pg.font.SysFont("Arial", 40, True)
@@ -88,3 +93,4 @@ rectangulo_colision_2 = pg.draw.rect(pantalla, COLOR_BLANCO, (390, 469, 70, 90),
 contador_totales_texto = fuente_lista.render (f"Total pescado: xxx", False, COLOR_NEGRO)
 coord_contador_x = centro_pantalla(RESOLUCION_PANTALLA, contador_totales_texto.get_size())
 coord_contador_y = 15
+rectangulo_boton_iniciar = pg.draw.rect(pantalla, COLOR_BLANCO, (288, 200, 160, 40), 1)
