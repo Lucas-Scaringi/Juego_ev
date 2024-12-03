@@ -218,7 +218,7 @@ while juego_corriendo:
         if jugando == False:
             pg.draw.rect(pantalla, COLOR_ROJO, rectangulo_boton_iniciar, 1)
     #Personaje
-    pg.draw.rect(pantalla, COLOR_CELESTE, rect_personaje, 1)
+        pg.draw.rect(pantalla, COLOR_CELESTE, rect_personaje, 1)
     #pantalla.blit(personaje, coord_personaje)
     #Colisiones 
     if pesca == True:
