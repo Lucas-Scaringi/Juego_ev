@@ -14,4 +14,4 @@ L ----> Abre lista de peces pescados (En modo pesca)
 
 
 
-Aclaración: Quería hacer un menú principal y un menú de configuraciones pero no llegué con el tiempo.
+Aclaración: Quería hacer un menú de configuraciones y un menú de pausa pero no llegué con el tiempo.
